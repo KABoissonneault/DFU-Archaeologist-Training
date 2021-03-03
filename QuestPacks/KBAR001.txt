@@ -1,0 +1,70 @@
+Quest: KBAR001.txt
+DisplayName: The Spriggan Artifact
+-- Message panels
+QRC:
+
+QuestorOffer:  [1000]
+<ce>	For my research, I need proof of a spriggan
+<ce>	artifact. If you help me, I will offer you
+<ce>	free Spriggan lessons. Interested?
+
+RefuseQest:  [1001]
+<ce>	But my research!... Bah, off with you.
+
+AcceptQuest:  [1002]
+<ce>	I'm sure you can find one in ___dung_.
+<ce>	Go there, and come back within =timer_
+<ce>	days; I gotta show my results then.
+<ce>	The faster you go, the less nervous
+<ce>	I will be for your lesson.
+
+QuestComplete:  [1004]
+<ce>	This is a genuine artifact! Just what 
+<ce> 	I needed. Come, let me teach you some
+<ce>	useful Spriggan sentences.
+
+QuestorPostsuccess:  [1008]
+Our new Spriggan expert is here! What can I do for you?
+
+QuestLogEntry: [1010]
+%qdt:
+ _qgiver_ of the Archaeologists
+ has sent me to ___dung_ to
+ find a spriggan artifact somewhere inside.
+ I must return to ___qgiver_
+ within =timer_ days.
+ 
+Message:  1040
+<ce>	The twigs and vines around the artifact
+<ce>	hint at its potential spriggan origin.
+<ce> 	This will have to do.
+
+Message:  1041
+<ce> 	_qgiver_ must have already presented his research, without your artifact.
+
+QBN: 
+Item _relig_ religious
+
+Person _qgiver_ group Questor
+
+Place _dung_ remote dungeon
+
+Clock _timer_ flag 16
+
+--	Quest start-up:
+	place item _relig_ at _dung_ 
+	start timer _timer_ 
+	reveal _dung_ 
+	log 1010 step 0
+	
+_grab_ task:
+    clicked item _relig_
+    say 1040
+	
+_timer_ task:
+	say 1041
+	end quest
+	
+_end_ task:
+	toting _relig_ and _qgiver_ clicked
+	train pc Spriggan
